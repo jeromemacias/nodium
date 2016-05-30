@@ -1,6 +1,6 @@
 import webdriver from 'selenium-webdriver';
 
-export default function getSauceLabsDriver(username, accessKey, browser, projectName = 'ssw sample test', tunnelName = 'local', build = 'local-0', capabilities = {}) {
+export default function getSauceLabsDriver(username, accessKey, browser, projectName = 'nodium sample test', tunnelName = 'local', build = 'local-0', capabilities = {}) {
     // auto detect tunnel name and build depends on travis-ci or circle-ci env var
     if (process.env.TRAVIS_JOB_NUMBER) {
         tunnelName = process.env.TRAVIS_JOB_NUMBER;

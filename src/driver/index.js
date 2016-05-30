@@ -1,5 +1,5 @@
 import getLocalDriver from './local';
-import getSauceLabsDriver from './sauce';
+import getSauceLabsDriver from './saucelabs';
 import getBrowserstackDriver from './browserstack';
 
 let driver;
@@ -52,10 +52,17 @@ if (process.env.BROWSERSTACK) {
     console.log(`Use ${browser.name.toLowerCase()} browser`);
 
 } else {
-    const browser = process.env.SELENIUM_BROWSER || 'chrome';
+    const browser = process.env.SELENIUM_BROWSER || 'firefox';
     const options = {};
     if (process.env.VERBOSE_MODE) {
         options.verbose = true;
+    }
+    if ('firefox' !== browser.toLowerCase()) {
+        const binaryPath = process.env.SELENIUM_BROWSER_BINARY_PATH;
+        if (!binaryPath) {
+            throw new Error(`You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`);
+        }
+        options.binaryPath = binaryPath;
     }
     driver = getLocalDriver(browser.toLowerCase(), options);
     console.log(`Use ${browser.toLowerCase()} browser`);

@@ -1,6 +1,6 @@
 import webdriver from 'selenium-webdriver';
 
-export default function getBrowserstackDriver(username, accessKey, browser, project = 'ssw sample test', localIdentifier = 'local', build = 'local', capabilities = {}) {
+export default function getBrowserstackDriver(username, accessKey, browser, project = 'nodium sample test', localIdentifier = 'local', build = 'local', capabilities = {}) {
     // auto detect tunnel name and build depends on travis-ci or circle-ci env var
     if (process.env.TRAVIS_JOB_NUMBER) {
         localIdentifier = process.env.TRAVIS_JOB_NUMBER;
