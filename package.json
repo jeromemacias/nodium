@@ -1,7 +1,7 @@
 {
   "name": "nodium",
   "version": "0.1.0",
-  "description": "Pure nodejs selenium webdrivers functional helpers",
+  "description": "Pure nodejs selenium webdriver functional helpers",
   "homepage": "https://github.com/jeromemacias/nodium",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "node": "~4.0"
   },
   "engine-strict": true,
-  "main": "lib",
+  "main": "lib/driver/index.js",
   "dependencies": {
     "selenium-webdriver": "~2.53.2"
   },
