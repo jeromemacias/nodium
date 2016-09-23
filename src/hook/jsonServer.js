@@ -1,4 +1,5 @@
 import jsonServer from 'json-server';
+import bodyParser from 'body-parser';
 
 export function jsonServerStart(defaults = {}, port = 3030) {
     const server = jsonServer.create();
