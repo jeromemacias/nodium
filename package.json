@@ -1,6 +1,6 @@
 {
   "name": "nodium",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pure nodejs selenium webdriver functional helpers",
   "homepage": "https://github.com/jeromemacias/nodium",
   "repository": {
