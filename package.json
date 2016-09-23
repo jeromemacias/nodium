@@ -1,6 +1,6 @@
 {
   "name": "nodium",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Pure nodejs selenium webdriver functional helpers",
   "homepage": "https://github.com/jeromemacias/nodium",
   "repository": {
@@ -39,6 +39,7 @@
     "chai": "~3.5",
     "chai-as-promised": "~5.3",
     "pm2": "*",
-    "request": "2.*"
+    "request": "2.*",
+    "json-server": "0.8.*"
   }
 }
