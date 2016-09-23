@@ -38,7 +38,7 @@
   "peerDependencies": {
     "chai": "~3.5",
     "chai-as-promised": "~5.3",
-    "pm2": "~1.1",
-    "request": "~2.69"
+    "pm2": "*",
+    "request": "2.*"
   }
 }
