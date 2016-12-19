@@ -2,5 +2,8 @@ install:
 	@echo "Installing Node dependencies"
 	@npm install
 
+build-dev:
+	./node_modules/.bin/babel --watch -d lib/ src/
+
 build:
-	./node_modules/.bin/babel --presets es2015,stage-2 -d lib/ src/
+	./node_modules/.bin/babel -d lib/ src/

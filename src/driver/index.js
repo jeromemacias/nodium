@@ -17,10 +17,10 @@ if (process.env.BROWSERSTACK) {
     } else {
         switch (browser.name.toLowerCase()) {
         case 'chrome':
-            browser.version = '49';
+            browser.version = '54';
             break;
         case 'firefox':
-            browser.version = '45';
+            browser.version = '49';
             break;
         default:
             throw new Error(`Cannot set default version for browser ${browser.name}`);
@@ -57,13 +57,13 @@ if (process.env.BROWSERSTACK) {
     if (process.env.VERBOSE_MODE) {
         options.verbose = true;
     }
-    if ('firefox' !== browser.toLowerCase()) {
-        const binaryPath = process.env.SELENIUM_BROWSER_BINARY_PATH;
-        if (!binaryPath) {
-            throw new Error(`You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`);
-        }
-        options.binaryPath = binaryPath;
+
+    const binaryPath = process.env.SELENIUM_BROWSER_BINARY_PATH;
+    if (!binaryPath) {
+        throw new Error(`You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`);
     }
+    options.binaryPath = binaryPath;
+
     driver = getLocalDriver(browser.toLowerCase(), options);
     console.log(`Use ${browser.toLowerCase()} browser`);
 }
