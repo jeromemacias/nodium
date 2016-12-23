@@ -16,14 +16,14 @@ if (process.env.BROWSERSTACK) {
         browser.version = process.env.BROWSERSTACK_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
-        case 'chrome':
-            browser.version = '54';
-            break;
-        case 'firefox':
-            browser.version = '49';
-            break;
-        default:
-            throw new Error(`Cannot set default version for browser ${browser.name}`);
+            case 'chrome':
+                browser.version = '54';
+                break;
+            case 'firefox':
+                browser.version = '49';
+                break;
+            default:
+                throw new Error(`Cannot set default version for browser ${browser.name}`);
         }
     }
     driver = getBrowserstackDriver(process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY, browser);
@@ -38,14 +38,14 @@ if (process.env.BROWSERSTACK) {
         browser.version = process.env.SAUCE_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
-        case 'chrome':
-            browser.version = '48';
-            break;
-        case 'firefox':
-            browser.version = '44';
-            break;
-        default:
-            throw new Error(`Cannot set default version for browser ${browser.name}`);
+            case 'chrome':
+                browser.version = '54';
+                break;
+            case 'firefox':
+                browser.version = '49';
+                break;
+            default:
+                throw new Error(`Cannot set default version for browser ${browser.name}`);
         }
     }
     driver = getSauceLabsDriver(process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY, browser);

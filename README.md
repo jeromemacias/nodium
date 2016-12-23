@@ -1,4 +1,5 @@
 # Nodium
+[![Build Status](https://travis-ci.org/jeromemacias/nodium.svg?branch=master)](https://travis-ci.org/jeromemacias/nodium) [![Circle CI](https://circleci.com/gh/jeromemacias/nodium/tree/master.svg?style=shield)](https://circleci.com/gh/jeromemacias/nodium/tree/master) ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=cVhLSm5lN25sTzNXVzZvOTBrcDRLdz09LS1LbmcwbzRudFlDZzhPUmtvOGQrQUV3PT0=--a6ea787fb17a270475e987369a9ebec9689914de%) [![Sauce Test Status](https://saucelabs.com/buildstatus/jeromemacias-nodium)](https://saucelabs.com/u/jeromemacias-nodium)
 
 Nodium is a collection of useful and pure functions around Selenium Webdriver.
 Functions can be imported as ES5 or ES6 (stage2) from package.
@@ -39,11 +40,8 @@ Available helpers:
     - saucelabs: update SaucLabs status at the end of your test suite
     - jsonServer: start jsonServer before running your test
     - pm2: start and stop pm2 processes
-- assert/
-    - chai: use expect and should from chai using chai-as-expected
 
 ## Todo
 
 - write documentation (by now, you can read the code directly)
-- add tests (see https://github.com/jeromemacias/mocha-node-webdriver for usage examples)
 - add more hook helpers

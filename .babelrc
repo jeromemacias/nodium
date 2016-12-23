@@ -11,8 +11,5 @@
   ],
   "plugins": [
     "transform-object-rest-spread"
-  ],
-  "ignore": [
-    "*.spec.js"
   ]
 }

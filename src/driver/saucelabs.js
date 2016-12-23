@@ -1,4 +1,4 @@
-import webdriver from 'selenium-webdriver';
+import { Builder } from 'selenium-webdriver';
 
 export default function getSauceLabsDriver(username, accessKey, browser, projectName = 'nodium sample test', tunnelName = 'local', build = 'local-0', capabilities = {}) {
     // auto detect tunnel name and build depends on travis-ci or circle-ci env var
@@ -11,9 +11,9 @@ export default function getSauceLabsDriver(username, accessKey, browser, project
         build = 'circle-' + tunnelName;
     }
 
-    return (new webdriver.Builder()).
-        usingServer('http://ondemand.saucelabs.com:80/wd/hub').
-        withCapabilities({
+    return (new Builder())
+        .usingServer('http://ondemand.saucelabs.com:80/wd/hub')
+        .withCapabilities({
             browserName: browser.name.charAt(0).toUpperCase() + browser.name.slice(1).toLowerCase(),
             platform: browser.platform,
             version: browser.version,
@@ -23,6 +23,6 @@ export default function getSauceLabsDriver(username, accessKey, browser, project
             accessKey,
             'tunnel-identifier': tunnelName,
             ...capabilities
-        }).
-        build();
+        })
+        .build();
 }

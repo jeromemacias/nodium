@@ -10,9 +10,7 @@ import {
 } from 'selenium-webdriver/firefox';
 
 function getChromeService(binaryPath) {
-    const chromeBinary = binaryPath || __dirname + '/../node_modules/webdriver-manager/selenium/chromedriver';
-
-    return new ChromeServiceBuilder(chromeBinary);
+    return new ChromeServiceBuilder(binaryPath);
 }
 
 function getChromeOptions() {
@@ -33,9 +31,7 @@ function getChromeDriverWithVerboseLogging(binaryPath, logPath) {
 }
 
 function getFirefoxService(binaryPath) {
-    const firefoxBinary = binaryPath || __dirname + '/../node_modules/webdriver-manager/selenium/geckodriver';
-
-    return new FirefoxServiceBuilder(firefoxBinary);
+    return new FirefoxServiceBuilder(binaryPath);
 }
 
 function getFirefoxOptions() {
@@ -55,20 +51,20 @@ function getFirefoxDriverWithVerboseLogging(binaryPath, logPath) {
 }
 
 export default function getLocalDriver(browser, { binaryPath, verbose, logPath }) {
-    let driver;
     switch (browser) {
-    case 'chrome':
-        if (verbose) {
-            return getChromeDriverWithVerboseLogging(binaryPath, logPath);
-        }
+        case 'chrome':
+            if (verbose) {
+                return getChromeDriverWithVerboseLogging(binaryPath, logPath);
+            }
 
-        return getChromeDriver(binaryPath);
-    case "firefox":
-        if (verbose) {
-            return getFirefoxDriverWithVerboseLogging(binaryPath, logPath);
-        }
+            return getChromeDriver(binaryPath);
+        case "firefox":
+            if (verbose) {
+                return getFirefoxDriverWithVerboseLogging(binaryPath, logPath);
+            }
 
-        return getFirefoxDriver(binaryPath);
-    default: throw new Error(`No local driver found for "${browser}"`);
+            return getFirefoxDriver(binaryPath);
+        default:
+            throw new Error(`No local driver found for "${browser}"`);
     }
 }
