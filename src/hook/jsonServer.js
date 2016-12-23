@@ -1,9 +1,10 @@
 import jsonServer from 'json-server';
-import bodyParser from 'body-parser';
 
 export function jsonServerStart(defaults = {}, port = 3030) {
+    defaults.logger = false;
+
     const server = jsonServer.create();
-    server.use(bodyParser.json());
+    server.use(jsonServer.bodyParser);
     server.use(jsonServer.defaults(defaults));
 
     const defaultRoute = server._router.stack.slice();
