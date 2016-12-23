@@ -21,7 +21,7 @@ if (process.env.BROWSERSTACK) {
     after(async () => {
         const message = await browserstackPostUpdateJob(
             driver,
-            process.env.BROWSERSTACK_USERNAME,
+            process.env.BROWSERSTACK_USER || process.env.BROWSERSTACK_USERNAME,
             process.env.BROWSERSTACK_ACCESS_KEY,
             allPassed
         );
