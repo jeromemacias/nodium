@@ -1,0 +1,10 @@
+env:
+    - export SELENIUM_BROWSER=chrome; export SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/chromedriver_2.26
+    - export SELENIUM_BROWSER=firefox SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/geckodriver-v0.11.1
+    - export BROWSERSTACK=true; export SELENIUM_BROWSER=chrome
+    - export BROWSERSTACK=true; export SELENIUM_BROWSER=firefox
+    - export SAUCE=true; export SELENIUM_BROWSER=chrome
+    - export SAUCE=true; export SELENIUM_BROWSER=firefox
+
+command:
+    - make test-local

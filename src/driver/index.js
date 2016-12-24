@@ -16,17 +16,21 @@ if (process.env.BROWSERSTACK) {
         browser.version = process.env.BROWSERSTACK_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
-        case 'chrome':
-            browser.version = '54';
-            break;
-        case 'firefox':
-            browser.version = '49';
-            break;
-        default:
-            throw new Error(`Cannot set default version for browser ${browser.name}`);
+            case 'chrome':
+                browser.version = '54';
+                break;
+            case 'firefox':
+                browser.version = '49';
+                break;
+            default:
+                throw new Error(`Cannot set default version for browser ${browser.name}`);
         }
     }
-    driver = getBrowserstackDriver(process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY, browser);
+
+    const username = process.env.BROWSERSTACK_USER || process.env.BROWSERSTACK_USERNAME;
+    const accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
+    driver = getBrowserstackDriver(username, accessKey, browser);
+
     console.log(`Use ${browser.name.toLowerCase()} browser`);
 
 } else if (process.env.SAUCE) {
@@ -38,33 +42,36 @@ if (process.env.BROWSERSTACK) {
         browser.version = process.env.SAUCE_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
-        case 'chrome':
-            browser.version = '48';
-            break;
-        case 'firefox':
-            browser.version = '44';
-            break;
-        default:
-            throw new Error(`Cannot set default version for browser ${browser.name}`);
+            case 'chrome':
+                browser.version = '54';
+                break;
+            case 'firefox':
+                browser.version = '49';
+                break;
+            default:
+                throw new Error(`Cannot set default version for browser ${browser.name}`);
         }
     }
-    driver = getSauceLabsDriver(process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY, browser);
+
+    const username = process.env.SAUCE_USERNAME;
+    const accessKey = process.env.SAUCE_ACCESS_KEY;
+    driver = getSauceLabsDriver(username, accessKey, browser);
+
     console.log(`Use ${browser.name.toLowerCase()} browser`);
 
 } else {
-    const browser = process.env.SELENIUM_BROWSER || 'firefox';
-    const options = {};
-    if (process.env.VERBOSE_MODE) {
-        options.verbose = true;
-    }
-
     const binaryPath = process.env.SELENIUM_BROWSER_BINARY_PATH;
     if (!binaryPath) {
         throw new Error(`You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`);
     }
-    options.binaryPath = binaryPath;
+    const browser = process.env.SELENIUM_BROWSER || 'firefox';
 
+    const options = {
+        binaryPath,
+        verbose: !!process.env.VERBOSE_MODE,
+    };
     driver = getLocalDriver(browser.toLowerCase(), options);
+
     console.log(`Use ${browser.toLowerCase()} browser`);
 }
 
