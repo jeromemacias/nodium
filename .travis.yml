@@ -4,7 +4,8 @@ node_js:
 dist: trusty
 sudo: false
 addons:
-  firefox: '49.0'
+  chrome: stable
+  firefox: '59.0'
   browserstack:
     username: "jrmemacias1"
     access_key:
@@ -15,7 +16,6 @@ addons:
     secure: "V7IR2EMmqYzaOnD5rZ3nXaKNijFSgqSE7+9Ekuwbc4e009X2ixO6jGHQVwd+JzxsHjGfY9jrz6Y3r90LFzTxYfCUgxoxCPrTn4AWRUtEKLWe2XIBOVzCDPSkugS1yM5rtjYbu+DxcRAamLo2Bi4VZNcO12PHWsqgmOYCkx+vreNGFsJzKM7Kpq5Ke3DnlP4clwf49guSgnoNPTqdyrK3cxaEJlBACvQ7sJHWF3YVmbHOwPwd3Z4YL6L70gs1I/XN32h2oscVzLRaGQ69Dpkw61oZVL8IKAxS3NEWLAratt3KzIrdhKzUTZzUeuJY+mKRupziQqPTReedhCcQZ2eJjF1Hzw0GDK0QjR2s5KOSGOo8ihAKd6d3u6lcW17gtTvl0c/ZzbEu8UAnLJTlX8AKqTcbz2+hW6VKqVtgIgNyc47OESRbfaR2ZKy1KlqmGxUgg0JT00U1vcvi6I6HgZ1yOIDVWg32yOsZdluStZyFZG2X6Mh2ZQL8qAhiDfWTvR4opTKc6Yc5AOPDZbsIWLzOg5DcFFvrKcNPJO4hM21ksgN7nXUqvoCa3DGT7YBY1Z42VPvEI9dDvHzPeLa3lJSwjAR11NCHmS7Zn7ucfugtH9Rfj7WCz/EH4tpk0FsmmSfS6jG2zQoZ/SyDQgWm+NdB4LI8OWZ6Z60wHETbuHvzP7Q="
 env:
   global:
-    - CHROME_BIN=chromium-browser
     - DISPLAY=:99.0
   matrix:
     - SELENIUM_BROWSER=chrome SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/chromedriver_2.26

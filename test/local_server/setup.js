@@ -40,6 +40,6 @@ if (process.env.BROWSERSTACK) {
     });
 }
 
-after(function () {
-    return driver.quit();
+after(async () => {
+    await driver.quit();
 });
