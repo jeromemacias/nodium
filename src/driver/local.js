@@ -35,7 +35,7 @@ function getFirefoxService(binaryPath) {
     return new FirefoxServiceBuilder(binaryPath);
 }
 
-function getFirefoxOptions() {
+export function getFirefoxOptions() {
     const profile = new FirefoxProfile();
     profile.setPreference('devtools.jsonview.enabled', false);
 
