@@ -29,6 +29,6 @@ export default function getSauceLabsDriver(username, accessKey, browser, project
     if (Browser.FIREFOX === browser.name.toLowerCase()) {
         builder.setFirefoxOptions(getFirefoxOptions());
     }
-    
+
     return builder.build();
 }
