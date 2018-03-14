@@ -18,8 +18,8 @@ env:
   global:
     - DISPLAY=:99.0
   matrix:
-    - SELENIUM_BROWSER=chrome SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/chromedriver_2.26
-    - SELENIUM_BROWSER=firefox SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/geckodriver-v0.11.1
+    - SELENIUM_BROWSER=chrome SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/chromedriver_2.36
+    - SELENIUM_BROWSER=firefox SELENIUM_BROWSER_BINARY_PATH=node_modules/webdriver-manager/selenium/geckodriver-v0.20.0
     - BROWSERSTACK=true SELENIUM_BROWSER=chrome
     - BROWSERSTACK=true SELENIUM_BROWSER=firefox
     - SAUCE=true SELENIUM_BROWSER=chrome
