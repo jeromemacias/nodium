@@ -1,4 +1,5 @@
-import { Builder } from 'selenium-webdriver';
+import { Builder, Browser } from 'selenium-webdriver';
+import { getFirefoxOptions } from './local';
 
 export default function getBrowserstackDriver(username, accessKey, browser, project = 'nodium sample test', localIdentifier = 'local', build = 'local', capabilities = {}) {
     // auto detect tunnel name and build depends on travis-ci or circle-ci env var
@@ -11,7 +12,7 @@ export default function getBrowserstackDriver(username, accessKey, browser, proj
         build = 'Circle #' + localIdentifier;
     }
 
-    return (new Builder())
+    const builder = (new Builder())
         .usingServer('http://hub.browserstack.com/wd/hub')
         .withCapabilities({
             browserName: browser.name.charAt(0).toUpperCase() + browser.name.slice(1).toLowerCase(),
@@ -26,5 +27,11 @@ export default function getBrowserstackDriver(username, accessKey, browser, proj
             'browserstack.localIdentifier' : localIdentifier,
             ...capabilities
         })
-        .build();
+    ;
+
+    if (Browser.FIREFOX === browser.name.toLowerCase()) {
+        builder.setFirefoxOptions(getFirefoxOptions());
+    }
+
+    return builder.build();
 }

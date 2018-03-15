@@ -7,6 +7,7 @@ import {
     ServiceBuilder as FirefoxServiceBuilder,
     Driver as FirefoxDriver,
     Options as FirefoxOptions,
+    Profile as FirefoxProfile,
 } from 'selenium-webdriver/firefox';
 
 function getChromeService(binaryPath) {
@@ -34,8 +35,11 @@ function getFirefoxService(binaryPath) {
     return new FirefoxServiceBuilder(binaryPath);
 }
 
-function getFirefoxOptions() {
-    return new FirefoxOptions();
+export function getFirefoxOptions() {
+    const profile = new FirefoxProfile();
+    profile.setPreference('devtools.jsonview.enabled', false);
+
+    return new FirefoxOptions().setProfile(profile);
 }
 
 function getFirefoxDriver(binaryPath) {
@@ -58,7 +62,7 @@ export default function getLocalDriver(browser, { binaryPath, verbose, logPath }
             }
 
             return getChromeDriver(binaryPath);
-        case "firefox":
+        case 'firefox':
             if (verbose) {
                 return getFirefoxDriverWithVerboseLogging(binaryPath, logPath);
             }

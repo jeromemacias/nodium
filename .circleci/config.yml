@@ -1,0 +1,186 @@
+version: 2.0
+
+jobs:
+  firefox:
+    docker:
+      - image: circleci/node:6-browsers
+    steps:
+      - run:
+          name: Install the latest firefox
+          command: |
+            sudo apt-get remove firefox-mozilla-build &&
+            sudo sh -c "echo 'deb http://ftp.hr.debian.org/debian sid main' >> /etc/apt/sources.list" &&
+            sudo apt-get update &&
+            sudo apt-get remove binutils &&
+            sudo apt-get install -t sid firefox &&
+            firefox --version
+      - checkout
+      - run: make install
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "firefox"
+            SELENIUM_BROWSER_BINARY_PATH: "node_modules/webdriver-manager/selenium/geckodriver-v0.20.0"
+
+  chrome:
+    docker:
+      - image: circleci/node:6-browsers
+    steps:
+      - checkout
+      - run: make install
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "chrome"
+            SELENIUM_BROWSER_BINARY_PATH: "node_modules/webdriver-manager/selenium/chromedriver_2.36"
+
+  "chrome-saucelabs":
+    docker:
+      - image: circleci/node:6
+    steps:
+      - run:
+          name: Install killall utility
+          command: sudo apt-get install psmisc
+      - run:
+          name: Install the latest Sauce Connect
+          command: |
+            cd /tmp &&
+            wget https://saucelabs.com/downloads/sc-4.4.12-linux.tar.gz &&
+            tar -xzf sc-4.4.12-linux.tar.gz
+      - checkout
+      - run: make install
+      - run:
+          name: Start Sauce Connect tunnel
+          command: |
+            cd /tmp/sc-*-linux &&
+            ./bin/sc -u ${SAUCE_USERNAME} -k ${SAUCE_ACCESS_KEY} -i ${CIRCLE_BUILD_NUM} --readyfile ~/sauce_is_ready
+          background: true
+      - run:
+          name: Wait for Sauce Connect tunnel to be ready
+          command: |
+            while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+          no_output_timeout: 60s
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "chrome"
+            SAUCE: true
+      - run:
+          name: Wait for Sauce Connect to close the tunnel
+          command: killall --wait sc
+
+  "firefox-saucelabs":
+    docker:
+      - image: circleci/node:6
+    steps:
+      - run:
+          name: Install killall utility
+          command: sudo apt-get install psmisc
+      - run:
+          name: Install the latest Sauce Connect
+          command: |
+            cd /tmp &&
+            wget https://saucelabs.com/downloads/sc-4.4.12-linux.tar.gz &&
+            tar -xzf sc-4.4.12-linux.tar.gz
+      - checkout
+      - run: make install
+      - run:
+          name: Start Sauce Connect tunnel
+          command: |
+            cd /tmp/sc-*-linux &&
+            ./bin/sc -u ${SAUCE_USERNAME} -k ${SAUCE_ACCESS_KEY} -i ${CIRCLE_BUILD_NUM} --readyfile ~/sauce_is_ready
+          background: true
+      - run:
+          name: Wait for Sauce Connect tunnel to be ready
+          command: |
+            while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+          no_output_timeout: 60s
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "firefox"
+            SAUCE: true
+      - run:
+          name: Wait for Sauce Connect to close the tunnel
+          command: killall --wait sc
+
+  "chrome-browserstack":
+    docker:
+      - image: circleci/node:6
+    steps:
+      - run:
+          name: Install killall utility
+          command: sudo apt-get install psmisc
+      - run:
+          name: Install the latest BrowserStack Local tunnel
+          command: |
+            cd /tmp &&
+            wget https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip &&
+            unzip BrowserStackLocal-linux-x64.zip
+      - checkout
+      - run: make install
+      - run:
+          name: Start BrowserStack Local
+          command: |
+            /tmp/BrowserStackLocal -localIdentifier ${CIRCLE_BUILD_NUM} ${BROWSERSTACK_ACCESS_KEY}
+          background: true
+      - run:
+          name: Wait for BrowserStack Local tunnel to be ready
+          command: sleep 10
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "chrome"
+            BROWSERSTACK: true
+      - run:
+          name: Wait for BrowserStack Local to close the tunnel
+          command: killall --wait BrowserStackLocal
+
+  "firefox-browserstack":
+    docker:
+      - image: circleci/node:6
+    steps:
+      - run:
+          name: Install killall utility
+          command: sudo apt-get install psmisc
+      - run:
+          name: Install the latest BrowserStack Local tunnel
+          command: |
+            cd /tmp &&
+            wget https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip &&
+            unzip BrowserStackLocal-linux-x64.zip
+      - checkout
+      - run: make install
+      - run:
+          name: Start BrowserStack Local
+          command: |
+            /tmp/BrowserStackLocal -localIdentifier ${CIRCLE_BUILD_NUM} ${BROWSERSTACK_ACCESS_KEY}
+          background: true
+      - run:
+          name: Wait for BrowserStack Local tunnel to be ready
+          command: sleep 10
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "firefox"
+            BROWSERSTACK: true
+      - run:
+          name: Wait for BrowserStack Local to close the tunnel
+          command: killall --wait BrowserStackLocal
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - firefox
+      - chrome
+      - "chrome-saucelabs"
+      - "firefox-saucelabs"
+      - "chrome-browserstack"
+      - "firefox-browserstack"
