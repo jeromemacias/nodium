@@ -24,7 +24,8 @@ export default function getSauceLabsDriver(username, accessKey, browser, project
             accessKey,
             'tunnel-identifier': tunnelName,
             ...capabilities
-        });
+        })
+    ;
 
     if (Browser.FIREFOX === browser.name.toLowerCase()) {
         builder.setFirefoxOptions(getFirefoxOptions());
