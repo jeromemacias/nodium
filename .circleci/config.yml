@@ -108,6 +108,72 @@ jobs:
           name: Wait for Sauce Connect to close the tunnel
           command: killall --wait sc
 
+  "chrome-browserstack":
+    docker:
+      - image: circleci/node:6
+    steps:
+      - run:
+          name: Install killall utility
+          command: sudo apt-get install psmisc
+      - run:
+          name: Install the latest BrowserStack Local tunnel
+          command: |
+            cd /tmp &&
+            wget https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip &&
+            unzip BrowserStackLocal-linux-x64.zip
+      - checkout
+      - run: make install
+      - run:
+          name: Start BrowserStack Local
+          command: |
+            /tmp/BrowserStackLocal -localIdentifier ${CIRCLE_BUILD_NUM} ${BROWSERSTACK_ACCESS_KEY}
+          background: true
+      - run:
+          name: Wait for BrowserStack Local tunnel to be ready
+          command: sleep 10
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "chrome"
+            BROWSERSTACK: true
+      - run:
+          name: Wait for BrowserStack Local to close the tunnel
+          command: killall --wait BrowserStackLocal
+
+  "firefox-browserstack":
+    docker:
+      - image: circleci/node:6
+    steps:
+      - run:
+          name: Install killall utility
+          command: sudo apt-get install psmisc
+      - run:
+          name: Install the latest BrowserStack Local tunnel
+          command: |
+            cd /tmp &&
+            wget https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip &&
+            unzip BrowserStackLocal-linux-x64.zip
+      - checkout
+      - run: make install
+      - run:
+          name: Start BrowserStack Local
+          command: |
+            /tmp/BrowserStackLocal -localIdentifier ${CIRCLE_BUILD_NUM} ${BROWSERSTACK_ACCESS_KEY}
+          background: true
+      - run:
+          name: Wait for BrowserStack Local tunnel to be ready
+          command: sleep 10
+      - run:
+          name: Run tests
+          command: make test-local
+          environment:
+            SELENIUM_BROWSER: "firefox"
+            BROWSERSTACK: true
+      - run:
+          name: Wait for BrowserStack Local to close the tunnel
+          command: killall --wait BrowserStackLocal
+
 workflows:
   version: 2
   build:
@@ -116,6 +182,8 @@ workflows:
       - chrome
       - "chrome-saucelabs"
       - "firefox-saucelabs"
+      - "chrome-browserstack"
+      - "firefox-browserstack"
 
 # dependencies:
 #   pre:
