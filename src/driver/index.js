@@ -17,10 +17,10 @@ if (process.env.BROWSERSTACK) {
     } else {
         switch (browser.name.toLowerCase()) {
             case 'chrome':
-                browser.version = '54';
+                browser.version = '65';
                 break;
             case 'firefox':
-                browser.version = '49';
+                browser.version = '58';
                 break;
             default:
                 throw new Error(`Cannot set default version for browser ${browser.name}`);
@@ -43,10 +43,10 @@ if (process.env.BROWSERSTACK) {
     } else {
         switch (browser.name.toLowerCase()) {
             case 'chrome':
-                browser.version = '54';
+                browser.version = '65';
                 break;
             case 'firefox':
-                browser.version = '49';
+                browser.version = '58';
                 break;
             default:
                 throw new Error(`Cannot set default version for browser ${browser.name}`);
