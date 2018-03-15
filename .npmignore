@@ -1,4 +1,6 @@
 node_modules
 makefile
-circle.yml
+.circleci
+.travis.yml
+.eslintrc
 *.log

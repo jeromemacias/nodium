@@ -28,7 +28,8 @@
   "engine-strict": true,
   "main": "lib/driver/index.js",
   "scripts": {
-    "prepublishOnly": "make build"
+    "prepublishOnly": "make build",
+    "np": "np --yolo"
   },
   "dependencies": {
     "selenium-webdriver": "~3.6.0"

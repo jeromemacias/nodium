@@ -19,3 +19,6 @@ test-remote:
 test:
 	make test-local
 	make test-remote
+
+publish:
+	npm run -s np
