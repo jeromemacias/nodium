@@ -29,7 +29,11 @@ if (process.env.BROWSERSTACK) {
 
     const username = process.env.BROWSERSTACK_USER || process.env.BROWSERSTACK_USERNAME;
     const accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
-    driver = getBrowserstackDriver(username, accessKey, browser);
+
+    require('pkginfo')(module, 'name');
+    const { exports: { name: project } } = module;
+
+    driver = getBrowserstackDriver(username, accessKey, browser, project);
 
     console.log(`Use ${browser.name.toLowerCase()} browser`);
 
@@ -55,7 +59,11 @@ if (process.env.BROWSERSTACK) {
 
     const username = process.env.SAUCE_USERNAME;
     const accessKey = process.env.SAUCE_ACCESS_KEY;
-    driver = getSauceLabsDriver(username, accessKey, browser);
+
+    require('pkginfo')(module, 'name');
+    const { exports: { name: projectName } } = module;
+
+    driver = getSauceLabsDriver(username, accessKey, browser, projectName);
 
     console.log(`Use ${browser.name.toLowerCase()} browser`);
 
