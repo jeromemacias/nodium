@@ -1,7 +1,7 @@
 import { until } from 'selenium-webdriver';
 
 export default driver => ({
-    waitForElementVisible: selector => driver.wait(until.elementLocated(selector)),
+    waitForElementVisible: (selector, timeout, message) => driver.wait(until.elementLocated(selector), timeout, message),
     getText: selector => driver.findElement(selector).getText(),
     getAttribute: (selector, name) => driver.findElement(selector).getAttribute(name),
     getValue: selector => driver.findElement(selector).getAttribute('value'),

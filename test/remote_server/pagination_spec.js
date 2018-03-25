@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { By } from 'selenium-webdriver';
+import { By, error } from 'selenium-webdriver';
 import { describe, it } from 'selenium-webdriver/testing';
 import driver from '../../src/driver';
 import driverUtilsFactory from '../../src/driver/utils';
@@ -8,10 +8,19 @@ const { waitForElementVisible, click, getAttribute } = driverUtilsFactory(driver
 
 describe('pagination on remote server', () => {
     async function clickNext() {
-        await waitForElementVisible(By.css('a.next'));
+        await waitForElementVisible(By.linkText('Next Page', 5000));
 
-        return await click(By.css('a.next'));
+        return click(By.linkText('Next Page'));
     }
+
+    it('should throw error on waitForElementVisible timeout', async () => {
+        const { TimeoutError } = error;
+        await driver.get('https://www.npmjs.org/');
+        
+        await waitForElementVisible(By.css('unexistant'), 1000).catch(e => {
+            expect(e instanceof TimeoutError).toBe(true);
+        });
+    });
 
     it('includes value of echo parameter in response', async () => {
         const echoString = 'please echo this';
@@ -22,7 +31,7 @@ describe('pagination on remote server', () => {
         await clickNext(); // fourth page, offset=118        (+39)
                            // URL for fifth page, offset=156 (+38)
 
-        const nextPageLink = await getAttribute(By.css('a.next'), 'href');
+        const nextPageLink = await getAttribute(By.linkText('Next Page'), 'href');
         const offset = nextPageLink.match(/=([0-9]+)$/)[1];
 
         expect(Number(offset)).toBeGreaterThan(120);
