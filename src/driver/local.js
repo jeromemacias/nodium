@@ -15,7 +15,7 @@ function getChromeService(binaryPath) {
 }
 
 function getChromeOptions() {
-    return new ChromeOptions().addArguments(['--no-sandbox']);
+    return new ChromeOptions().addArguments(['--no-sandbox', 'start-maximized']);
 }
 
 function getChromeDriver(binaryPath) {
