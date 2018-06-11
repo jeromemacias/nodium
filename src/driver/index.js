@@ -1,6 +1,7 @@
 import getLocalDriver from './local';
 import getSauceLabsDriver from './saucelabs';
 import getBrowserstackDriver from './browserstack';
+const debug = require('debug')('nodium');
 
 let driver;
 
@@ -35,7 +36,7 @@ if (process.env.BROWSERSTACK) {
 
     driver = getBrowserstackDriver(username, accessKey, browser, project);
 
-    console.log(`Use ${browser.name.toLowerCase()} browser`);
+    debug(`Use ${browser.name.toLowerCase()} browser`);
 
 } else if (process.env.SAUCE) {
     const browser = {
@@ -65,7 +66,7 @@ if (process.env.BROWSERSTACK) {
 
     driver = getSauceLabsDriver(username, accessKey, browser, projectName);
 
-    console.log(`Use ${browser.name.toLowerCase()} browser`);
+    debug(`Use ${browser.name.toLowerCase()} browser`);
 
 } else {
     const binaryPath = process.env.SELENIUM_BROWSER_BINARY_PATH;
@@ -80,7 +81,7 @@ if (process.env.BROWSERSTACK) {
     };
     driver = getLocalDriver(browser.toLowerCase(), options);
 
-    console.log(`Use ${browser.toLowerCase()} browser`);
+    debug(`Use ${browser.toLowerCase()} browser`);
 }
 
 export default driver;
