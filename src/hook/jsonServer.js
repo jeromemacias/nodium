@@ -9,7 +9,7 @@ export function jsonServerStart(defaults = {}, port = 3030) {
 
     const defaultRoute = server._router.stack.slice();
 
-    server.reset = function () {
+    server.reset = function() {
         server._router.stack = defaultRoute.slice();
     };
 

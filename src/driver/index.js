@@ -24,24 +24,28 @@ if (process.env.BROWSERSTACK) {
                 browser.version = '58';
                 break;
             default:
-                throw new Error(`Cannot set default version for browser ${browser.name}`);
+                throw new Error(
+                    `Cannot set default version for browser ${browser.name}`
+                );
         }
     }
 
-    const username = process.env.BROWSERSTACK_USER || process.env.BROWSERSTACK_USERNAME;
+    const username =
+        process.env.BROWSERSTACK_USER || process.env.BROWSERSTACK_USERNAME;
     const accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
 
     require('pkginfo')(module, 'name');
-    const { exports: { name: project } } = module;
+    const {
+        exports: { name: project },
+    } = module;
 
     driver = getBrowserstackDriver(username, accessKey, browser, project);
 
     debug(`Use ${browser.name.toLowerCase()} browser`);
-
 } else if (process.env.SAUCE) {
     const browser = {
         name: process.env.SELENIUM_BROWSER || 'chrome',
-        platform: process.env.SAUCE_PLATFORM || 'Windows 10'
+        platform: process.env.SAUCE_PLATFORM || 'Windows 10',
     };
     if (process.env.SAUCE_VERSION) {
         browser.version = process.env.SAUCE_VERSION;
@@ -54,7 +58,9 @@ if (process.env.BROWSERSTACK) {
                 browser.version = '58';
                 break;
             default:
-                throw new Error(`Cannot set default version for browser ${browser.name}`);
+                throw new Error(
+                    `Cannot set default version for browser ${browser.name}`
+                );
         }
     }
 
@@ -62,16 +68,19 @@ if (process.env.BROWSERSTACK) {
     const accessKey = process.env.SAUCE_ACCESS_KEY;
 
     require('pkginfo')(module, 'name');
-    const { exports: { name: projectName } } = module;
+    const {
+        exports: { name: projectName },
+    } = module;
 
     driver = getSauceLabsDriver(username, accessKey, browser, projectName);
 
     debug(`Use ${browser.name.toLowerCase()} browser`);
-
 } else {
     const binaryPath = process.env.SELENIUM_BROWSER_BINARY_PATH;
     if (!binaryPath) {
-        throw new Error(`You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`);
+        throw new Error(
+            `You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`
+        );
     }
     const browser = process.env.SELENIUM_BROWSER || 'firefox';
 

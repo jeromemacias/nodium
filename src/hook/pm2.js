@@ -7,13 +7,16 @@ export function pm2start(name, config = {}, callback = () => {}) {
             return;
         }
 
-        pm2.start({
-            name: name,
-            ...config
-        }, (err, apps) => {
-            pm2.disconnect();
-            callback(err);
-        });
+        pm2.start(
+            {
+                name: name,
+                ...config,
+            },
+            (err, apps) => {
+                pm2.disconnect();
+                callback(err);
+            }
+        );
     });
 }
 
