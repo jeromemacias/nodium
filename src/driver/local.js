@@ -15,11 +15,17 @@ function getChromeService(binaryPath) {
 }
 
 function getChromeOptions() {
-    return new ChromeOptions().addArguments(['--no-sandbox', 'start-maximized']);
+    return new ChromeOptions().addArguments([
+        '--no-sandbox',
+        'start-maximized',
+    ]);
 }
 
 function getChromeDriver(binaryPath) {
-    return ChromeDriver.createSession(getChromeOptions(), getChromeService(binaryPath).build());
+    return ChromeDriver.createSession(
+        getChromeOptions(),
+        getChromeService(binaryPath).build()
+    );
 }
 
 function getChromeDriverWithVerboseLogging(binaryPath, logPath) {
@@ -43,7 +49,10 @@ export function getFirefoxOptions() {
 }
 
 function getFirefoxDriver(binaryPath) {
-    return FirefoxDriver.createSession(getFirefoxOptions(), getFirefoxService(binaryPath).build());
+    return FirefoxDriver.createSession(
+        getFirefoxOptions(),
+        getFirefoxService(binaryPath).build()
+    );
 }
 
 function getFirefoxDriverWithVerboseLogging(binaryPath, logPath) {
@@ -54,7 +63,10 @@ function getFirefoxDriverWithVerboseLogging(binaryPath, logPath) {
     return FirefoxDriver.createSession(getFirefoxOptions(), service);
 }
 
-export default function getLocalDriver(browser, { binaryPath, verbose, logPath }) {
+export default function getLocalDriver(
+    browser,
+    { binaryPath, verbose, logPath }
+) {
     switch (browser) {
         case 'chrome':
             if (verbose) {
