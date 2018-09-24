@@ -1,3 +1,4 @@
+import { Browser } from 'selenium-webdriver';
 import getLocalDriver from './local';
 import getSauceLabsDriver from './saucelabs';
 import getBrowserstackDriver from './browserstack';
@@ -9,6 +10,7 @@ if (process.env.BROWSERSTACK) {
     const browser = {
         name: process.env.SELENIUM_BROWSER || 'chrome',
         platform: process.env.BROWSERSTACK_PLATFORM || 'Windows',
+        resolution: process.env.BROWSERSTACK_RESOLUTION || '1280x1024',
     };
     if (process.env.BROWSERSTACK_PLATFORM_VERSION) {
         browser.platformVersion = process.env.BROWSERSTACK_PLATFORM_VERSION;
@@ -17,11 +19,11 @@ if (process.env.BROWSERSTACK) {
         browser.version = process.env.BROWSERSTACK_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
-            case 'chrome':
-                browser.version = '65';
+            case Browser.CHROME:
+                browser.version = '69';
                 break;
-            case 'firefox':
-                browser.version = '58';
+            case Browser.FIREFOX:
+                browser.version = '62';
                 break;
             default:
                 throw new Error(
@@ -51,10 +53,10 @@ if (process.env.BROWSERSTACK) {
         browser.version = process.env.SAUCE_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
-            case 'chrome':
+            case Browser.CHROME:
                 browser.version = '65';
                 break;
-            case 'firefox':
+            case Browser.FIREFOX:
                 browser.version = '58';
                 break;
             default:
@@ -82,7 +84,7 @@ if (process.env.BROWSERSTACK) {
             `You must provide a browser binary path using "SELENIUM_BROWSER_BINARY_PATH" env var.`
         );
     }
-    const browser = process.env.SELENIUM_BROWSER || 'firefox';
+    const browser = process.env.SELENIUM_BROWSER || Browser.FIREFOX;
 
     const options = {
         binaryPath,

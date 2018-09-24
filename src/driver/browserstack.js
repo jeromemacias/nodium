@@ -31,6 +31,7 @@ export default function getBrowserstackDriver(
             os: browser.platform,
             os_version: browser.platformVersion,
             browser_version: browser.version,
+            resolution: browser.resolution,
             build,
             project,
             'browserstack.user': username,
