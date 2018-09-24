@@ -25,8 +25,8 @@ jobs:
                   name: Run tests
                   command: make test-local
                   environment:
-                      SELENIUM_BROWSER: "firefox"
-                      SELENIUM_BROWSER_BINARY_PATH: "node_modules/webdriver-manager/selenium/geckodriver-v0.20.0"
+                      SELENIUM_BROWSER: 'firefox'
+                      SELENIUM_BROWSER_BINARY_PATH: 'node_modules/webdriver-manager/selenium/geckodriver-v0.22.0'
 
     chrome:
         docker:
@@ -38,10 +38,10 @@ jobs:
                   name: Run tests
                   command: make test-local
                   environment:
-                      SELENIUM_BROWSER: "chrome"
-                      SELENIUM_BROWSER_BINARY_PATH: "node_modules/webdriver-manager/selenium/chromedriver_2.36"
+                      SELENIUM_BROWSER: 'chrome'
+                      SELENIUM_BROWSER_BINARY_PATH: 'node_modules/webdriver-manager/selenium/chromedriver_2.42'
 
-    "chrome-saucelabs":
+    'chrome-saucelabs':
         docker:
             - image: circleci/node:6
         steps:
@@ -78,13 +78,13 @@ jobs:
                   name: Run tests
                   command: make test-local
                   environment:
-                      SELENIUM_BROWSER: "chrome"
+                      SELENIUM_BROWSER: 'chrome'
                       SAUCE: true
             - run:
                   name: Wait for Sauce Connect to close the tunnel
                   command: killall --wait sc
 
-    "firefox-saucelabs":
+    'firefox-saucelabs':
         docker:
             - image: circleci/node:6
         steps:
@@ -121,13 +121,13 @@ jobs:
                   name: Run tests
                   command: make test-local
                   environment:
-                      SELENIUM_BROWSER: "firefox"
+                      SELENIUM_BROWSER: 'firefox'
                       SAUCE: true
             - run:
                   name: Wait for Sauce Connect to close the tunnel
                   command: killall --wait sc
 
-    "chrome-browserstack":
+    'chrome-browserstack':
         docker:
             - image: circleci/node:6
         steps:
@@ -161,13 +161,13 @@ jobs:
                   name: Run tests
                   command: make test-local
                   environment:
-                      SELENIUM_BROWSER: "chrome"
+                      SELENIUM_BROWSER: 'chrome'
                       BROWSERSTACK: true
             - run:
                   name: Wait for BrowserStack Local to close the tunnel
                   command: killall --wait BrowserStackLocal
 
-    "firefox-browserstack":
+    'firefox-browserstack':
         docker:
             - image: circleci/node:6
         steps:
@@ -201,7 +201,7 @@ jobs:
                   name: Run tests
                   command: make test-local
                   environment:
-                      SELENIUM_BROWSER: "firefox"
+                      SELENIUM_BROWSER: 'firefox'
                       BROWSERSTACK: true
             - run:
                   name: Wait for BrowserStack Local to close the tunnel
@@ -213,7 +213,7 @@ workflows:
         jobs:
             - firefox
             - chrome
-            - "chrome-saucelabs"
-            - "firefox-saucelabs"
-            - "chrome-browserstack"
-            - "firefox-browserstack"
+            - 'chrome-saucelabs'
+            - 'firefox-saucelabs'
+            - 'chrome-browserstack'
+            - 'firefox-browserstack'
