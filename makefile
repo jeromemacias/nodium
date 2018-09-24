@@ -2,7 +2,7 @@ install:
 	@echo "Installing Node dependencies"
 	@npm install
 	@echo "Installing Selenium webdrivers"
-	@./node_modules/.bin/webdriver-manager update --versions.chrome="2.36" --versions.gecko="v0.20.0"
+	@./node_modules/.bin/webdriver-manager update --versions.chrome="2.42" --versions.gecko="v0.22.0" --standalone false
 
 build-dev:
 	./node_modules/.bin/babel --watch -d lib/ src/
