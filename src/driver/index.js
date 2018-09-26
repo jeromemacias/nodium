@@ -48,16 +48,17 @@ if (process.env.BROWSERSTACK) {
     const browser = {
         name: process.env.SELENIUM_BROWSER || 'chrome',
         platform: process.env.SAUCE_PLATFORM || 'Windows 10',
+        resolution: process.env.SAUCE_RESOLUTION || '1280x1024',
     };
     if (process.env.SAUCE_VERSION) {
         browser.version = process.env.SAUCE_VERSION;
     } else {
         switch (browser.name.toLowerCase()) {
             case Browser.CHROME:
-                browser.version = '65';
+                browser.version = '69';
                 break;
             case Browser.FIREFOX:
-                browser.version = '58';
+                browser.version = '62';
                 break;
             default:
                 throw new Error(

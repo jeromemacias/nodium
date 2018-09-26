@@ -28,6 +28,7 @@ export default function getSauceLabsDriver(
                 browser.name.slice(1).toLowerCase(),
             platform: browser.platform,
             version: browser.version,
+            screenResolution: browser.resolution,
             name: projectName,
             build,
             username,
