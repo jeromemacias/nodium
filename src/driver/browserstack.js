@@ -22,6 +22,10 @@ export default function getBrowserstackDriver(
         build = 'Circle #' + localIdentifier;
     }
 
+    if (browser.version) {
+        capabilities.browser_version = browser.version;
+    }
+
     const builder = new Builder()
         .usingServer('http://hub.browserstack.com/wd/hub')
         .withCapabilities({
@@ -30,7 +34,6 @@ export default function getBrowserstackDriver(
                 browser.name.slice(1).toLowerCase(),
             os: browser.platform,
             os_version: browser.platformVersion,
-            browser_version: browser.version,
             resolution: browser.resolution,
             build,
             project,
