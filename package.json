@@ -33,28 +33,28 @@
         "np": "np --yolo"
     },
     "dependencies": {
-        "debug": "~3.1.0",
+        "debug": "~4.1.1",
         "pkginfo": "~0.4.1",
         "selenium-webdriver": "~3.6.0"
     },
     "devDependencies": {
         "babel-cli": "~6.26.0",
-        "babel-eslint": "~9.0.0",
+        "babel-eslint": "~10.0.1",
         "babel-plugin-transform-object-rest-spread": "~6.26.0",
         "babel-preset-env": "~1.7.0",
         "babel-register": "~6.26.0",
-        "eslint": "~5.6.0",
-        "eslint-config-prettier": "~3.1.0",
-        "eslint-plugin-babel": "~5.2.0",
-        "eslint-plugin-prettier": "~2.6.2",
+        "eslint": "~5.11.0",
+        "eslint-config-prettier": "~3.3.0",
+        "eslint-plugin-babel": "~5.3.0",
+        "eslint-plugin-prettier": "~3.0.0",
         "expect": "~23.6.0",
         "json-server": "~0.14.0",
         "mocha": "~5.2.0",
-        "np": "~3.0.4",
-        "prettier": "~1.14.3",
+        "np": "~3.1.0",
+        "prettier": "~1.15.3",
         "prettier-eslint-cli": "~4.7.1",
         "request": "~2.88.0",
-        "webdriver-manager": "~12.1.0"
+        "webdriver-manager": "~12.1.1"
     },
     "peerDependencies": {
         "pm2": ">=1.*",
