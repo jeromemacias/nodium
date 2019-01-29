@@ -25,6 +25,9 @@ export default function getBrowserstackDriver(
     if (browser.version) {
         capabilities.browser_version = browser.version;
     }
+    if (!capabilities['browserstack.selenium_version']) {
+        capabilities['browserstack.selenium_version'] = '3.14.0';
+    }
 
     const builder = new Builder()
         .usingServer('http://hub.browserstack.com/wd/hub')
