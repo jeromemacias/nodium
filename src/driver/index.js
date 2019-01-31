@@ -7,6 +7,7 @@ const debug = require('debug')('nodium');
 let driver;
 
 if (process.env.BROWSERSTACK) {
+    const capabilities = {};
     const browser = {
         name: process.env.SELENIUM_BROWSER || 'chrome',
         platform: process.env.BROWSERSTACK_PLATFORM || 'Windows',
@@ -17,31 +18,31 @@ if (process.env.BROWSERSTACK) {
     }
     if (process.env.BROWSERSTACK_VERSION) {
         browser.version = process.env.BROWSERSTACK_VERSION;
-    } else {
-        switch (browser.name.toLowerCase()) {
-            case Browser.CHROME:
-                browser.version = '69';
-                break;
-            case Browser.FIREFOX:
-                browser.version = '62';
-                break;
-            default:
-                throw new Error(
-                    `Cannot set default version for browser ${browser.name}`
-                );
-        }
+    }
+    if (process.env.BROWSERSTACK_SELENIUM_VERSION) {
+        capabilities['browserstack.selenium_version'] =
+            process.env.BROWSERSTACK_SELENIUM_VERSION;
     }
 
     const username =
         process.env.BROWSERSTACK_USER || process.env.BROWSERSTACK_USERNAME;
     const accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
 
-    require('pkginfo')(module, 'name');
+    const parentModule = module.parent || module;
+    require('pkginfo')(parentModule, 'name');
     const {
         exports: { name: project },
-    } = module;
+    } = parentModule;
 
-    driver = getBrowserstackDriver(username, accessKey, browser, project);
+    driver = getBrowserstackDriver(
+        username,
+        accessKey,
+        browser,
+        project,
+        'local',
+        'local',
+        capabilities
+    );
 
     debug(`Use ${browser.name.toLowerCase()} browser`);
 } else if (process.env.SAUCE) {
@@ -70,10 +71,11 @@ if (process.env.BROWSERSTACK) {
     const username = process.env.SAUCE_USERNAME;
     const accessKey = process.env.SAUCE_ACCESS_KEY;
 
-    require('pkginfo')(module, 'name');
+    const parentModule = module.parent || module;
+    require('pkginfo')(parentModule, 'name');
     const {
         exports: { name: projectName },
-    } = module;
+    } = parentModule;
 
     driver = getSauceLabsDriver(username, accessKey, browser, projectName);
 
